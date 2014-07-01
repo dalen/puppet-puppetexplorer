@@ -1,0 +1,11 @@
+<% require 'json' -%>
+// List of PuppetDB servers, pairs of name and URL
+// The first one will be used as the default server
+PUPPETDB_SERVERS = <%= @puppetdb_servers.to_json %>;
+
+// A list of important facts that you want shown in the node detail view
+NODE_FACTS = <%= @node_facts.to_json %>;
+
+// Google Analytics settings
+GA_TRACKING_ID = '<%= @ga_tracking_id %>';
+GA_DOMAIN = '<%= @ga_domain %>';
