@@ -28,7 +28,7 @@ should work if it is hosted on the same host as PuppetDB.
   The Apache vhost servername. Default: $::fqdn
 
 #####`ssl`
-  If SSL should be turned on for the Aapche vhost. Default: true
+  If SSL should be turned on for the Apache vhost. Default: true
 
 #####`port`
   Port of the Apache vhost. Default: 443
