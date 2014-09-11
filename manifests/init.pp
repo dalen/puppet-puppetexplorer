@@ -21,6 +21,11 @@
 #   List of facts to display in node detail view.
 #   Default: [ 'operatingsystem', 'operatingsystemrelease', 'manufacturer',
 #              'productname', 'processorcount', 'memorytotal', 'ipaddress' ]
+#
+# [*unresponsive_hours*]
+#   The amount of hours since the last check-in after which a node is considered
+#   unresponsive.
+#   Default: 2
 # 
 # [*manage_apt*]
 #   Add apt repo for the module
@@ -58,11 +63,11 @@
 # Copyright 2014 Spotify
 #
 class puppetexplorer (
-  $package_ensure   = present,
-  $ga_tracking_id   = 'UA-XXXXXXXX-YY',
-  $ga_domain        = 'auto',
-  $puppetdb_servers = [ ['production', '/api'] ],
-  $node_facts       = [
+  $package_ensure     = present,
+  $ga_tracking_id     = 'UA-XXXXXXXX-YY',
+  $ga_domain          = 'auto',
+  $puppetdb_servers   = [ ['production', '/api'] ],
+  $node_facts         = [
     'operatingsystem',
     'operatingsystemrelease',
     'manufacturer',
@@ -71,16 +76,17 @@ class puppetexplorer (
     'memorytotal',
     'ipaddress'
   ],
-  $manage_apt       = $::osfamily ? {
+  $unresponsive_hours = 2,
+  $manage_apt         = $::osfamily ? {
     'Debian' => true,
     default  => false,
   },
   # Apache site options:
-  $servername       = $::fqdn,
-  $ssl              = true,
-  $port             = 443,
-  $proxy_pass       = [{ 'path' => '/api/v4', 'url' => 'http://localhost:8080/v4' }],
-  $vhost_options    = {},
+  $servername         = $::fqdn,
+  $ssl                = true,
+  $port               = 443,
+  $proxy_pass         = [{ 'path' => '/api/v4', 'url' => 'http://localhost:8080/v4' }],
+  $vhost_options      = {},
 ) {
   include apache
   

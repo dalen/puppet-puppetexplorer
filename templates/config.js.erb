@@ -6,6 +6,9 @@ PUPPETDB_SERVERS = <%= @puppetdb_servers.to_json %>;
 // A list of important facts that you want shown in the node detail view
 NODE_FACTS = <%= @node_facts.to_json %>;
 
+// The amount of hours since the last check-in after which a node is considered unresponsive
+UNRESPONSIVE_HOURS = <%= @unresponsive_hours %>;
+
 // Google Analytics settings
 GA_TRACKING_ID = '<%= @ga_tracking_id %>';
 GA_DOMAIN = '<%= @ga_domain %>';

@@ -24,6 +24,11 @@ should work if it is hosted on the same host as PuppetDB.
 #####`puppetdb_servers`
   List of server name and URL tuples. Default: [ ['production', '/api'] ]
 
+#####`unresponsive_hours`
+  The amount of hours since the last check-in after which a node is considered
+  unresponsive.
+  Default: 2
+
 #####`manage_apt`
   Add apt repo for the module.
   Defaults to true for $::osfamily Debian
