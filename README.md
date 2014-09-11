@@ -24,6 +24,10 @@ should work if it is hosted on the same host as PuppetDB.
 #####`puppetdb_servers`
   List of server name and URL tuples. Default: [ ['production', '/api'] ]
 
+#####`manage_apt`
+  Add apt repo for the module.
+  Defaults to true for $::osfamily Debian
+
 #####`servername`
   The Apache vhost servername. Default: $::fqdn
 

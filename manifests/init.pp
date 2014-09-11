@@ -21,6 +21,10 @@
 #   List of facts to display in node detail view.
 #   Default: [ 'operatingsystem', 'operatingsystemrelease', 'manufacturer',
 #              'productname', 'processorcount', 'memorytotal', 'ipaddress' ]
+# 
+# [*manage_apt*]
+#   Add apt repo for the module
+#   Defaults to true for $::osfamily Debian
 #
 # [*servername*]
 #   The Apache vhost servername. Default: $::fqdn
@@ -47,7 +51,7 @@
 #
 # === Authors
 #
-# Erik Dalen <dalen@spotify.com.com>
+# Erik Dalen <dalen@spotify.com>
 #
 # === Copyright
 #
@@ -67,6 +71,10 @@ class puppetexplorer (
     'memorytotal',
     'ipaddress'
   ],
+  $manage_apt       = $::osfamily ? {
+    'Debian' => true,
+    default  => false,
+  },
   # Apache site options:
   $servername       = $::fqdn,
   $ssl              = true,
@@ -75,6 +83,16 @@ class puppetexplorer (
   $vhost_options    = {},
 ) {
   include apache
+  
+  if $manage_apt {
+    apt::source { 'puppetexplorer':
+      location    => 'http://apt.puppetexplorer.io',
+      release     => 'stable',
+      repos       => 'main',
+      key         => '84F6BA52',
+      include_src => false,
+    }
+  }
 
   package { 'puppetexplorer':
     ensure => $package_ensure,
