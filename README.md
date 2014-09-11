@@ -24,6 +24,12 @@ should work if it is hosted on the same host as PuppetDB.
 #####`puppetdb_servers`
   List of server name and URL tuples. Default: [ ['production', '/api'] ]
 
+#####`node_facts`
+  List of facts to display in node detail view.
+  Default: [ 'operatingsystem', 'operatingsystemrelease', 'manufacturer',
+             'productname', 'processorcount', 'memorytotal', 'ipaddress' ]
+
+
 #####`unresponsive_hours`
   The amount of hours since the last check-in after which a node is considered
   unresponsive.
