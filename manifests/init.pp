@@ -26,7 +26,28 @@
 #   The amount of hours since the last check-in after which a node is considered
 #   unresponsive.
 #   Default: 2
-# 
+#
+# [*dashboard_panels*]
+#   Custom dashboard panels. Should be an array of hashes containing the keys
+#   name, query and type.
+#   Default: [
+#     {
+#       name: 'Unresponsive nodes',
+#       type: 'danger',
+#       query: '#node.report-timestamp < @"now - 2 hours"'
+#     },
+#     {
+#       name: 'Nodes in production env',
+#       type: 'success',
+#       query: '#node.catalog-environment = production'
+#     },
+#     {
+#       name: 'Nodes in non-production env',
+#       type: 'warning',
+#       query: '#node.catalog-environment != production'
+#     }
+#   ]
+#
 # [*manage_apt*]
 #   Add apt repo for the module
 #   Defaults to true for $::osfamily Debian
@@ -77,6 +98,23 @@ class puppetexplorer (
     'ipaddress'
   ],
   $unresponsive_hours = 2,
+  $dashboard_panels   = [
+    {
+      name: 'Unresponsive nodes',
+      type: 'danger',
+      query: '#node.report-timestamp < @"now - 2 hours"'
+    },
+    {
+      name: 'Nodes in production env',
+      type: 'success',
+      query: '#node.catalog-environment = production'
+    },
+    {
+      name: 'Nodes in non-production env',
+      type: 'warning',
+      query: '#node.catalog-environment != production'
+    }
+  ],
   $manage_apt         = $::osfamily ? {
     'Debian' => true,
     default  => false,

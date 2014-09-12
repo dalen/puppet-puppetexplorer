@@ -9,6 +9,11 @@ NODE_FACTS = <%= @node_facts.to_json %>;
 // The amount of hours since the last check-in after which a node is considered unresponsive
 UNRESPONSIVE_HOURS = <%= @unresponsive_hours %>;
 
+// Customisable dashboard panels
+// type can be either 'primary', 'success', 'info', 'warning' or 'danger'
+// Different types will be displayed with different colors
+DASHBOARD_PANELS = <%= @dashboard_panels.to_json %>;
+
 // Google Analytics settings
 GA_TRACKING_ID = '<%= @ga_tracking_id %>';
 GA_DOMAIN = '<%= @ga_domain %>';
