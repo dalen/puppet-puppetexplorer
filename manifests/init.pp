@@ -52,6 +52,10 @@
 #   Add apt repo for the module
 #   Defaults to true for $::osfamily Debian
 #
+# [*manage_yum*]
+#   Add yum repo for the module
+#   Defaults to true for $::osfamily RedHat
+#
 # [*servername*]
 #   The Apache vhost servername. Default: $::fqdn
 #
@@ -119,6 +123,10 @@ class puppetexplorer (
     'Debian' => true,
     default  => false,
   },
+  $manage_yum         = $::osfamily ? {
+    'RedHat' => true,
+    default  => false,
+  },
   # Apache site options:
   $servername         = $::fqdn,
   $ssl                = true,
@@ -127,7 +135,7 @@ class puppetexplorer (
   $vhost_options      = {},
 ) {
   include apache
-  
+
   if $manage_apt {
     apt::source { 'puppetexplorer':
       location    => 'http://apt.puppetexplorer.io',
@@ -135,6 +143,23 @@ class puppetexplorer (
       repos       => 'main',
       key         => '84F6BA52',
       include_src => false,
+    }
+  }
+
+  if $manage_yum {
+    file { '/etc/pki/rpm-gpg/RPM-GPG-KEY-puppetexplorer':
+      ensure => file,
+      source => 'puppet:///modules/puppetexplorer/RPM-GPG-KEY-puppetexplorer',
+      before => Yumrepo['puppetexplorer'],
+    }
+    yumrepo { 'puppetexplorer':
+      ensure   => present,
+      descr    => 'Puppet Explorer',
+      baseurl  => 'http://yum.puppetexplorer.io/',
+      enabled  => true,
+      gpgcheck => true,
+      gpgkey   => 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-puppetexplorer',
+      before   => Package['puppetexplorer'],
     }
   }
 

@@ -61,6 +61,10 @@ should work if it is hosted on the same host as PuppetDB.
   Add apt repo for the module.
   Defaults to true for $::osfamily Debian
 
+#####`manage_yum`
+  Add yum repo for the module.
+  Defaults to true for $::osfamily RedHat
+
 #####`servername`
   The Apache vhost servername. Default: $::fqdn
 
