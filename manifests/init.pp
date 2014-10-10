@@ -153,13 +153,14 @@ class puppetexplorer (
       before => Yumrepo['puppetexplorer'],
     }
     yumrepo { 'puppetexplorer':
-      ensure   => present,
-      descr    => 'Puppet Explorer',
-      baseurl  => 'http://yum.puppetexplorer.io/',
-      enabled  => true,
-      gpgcheck => true,
-      gpgkey   => 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-puppetexplorer',
-      before   => Package['puppetexplorer'],
+      ensure        => present,
+      descr         => 'Puppet Explorer',
+      baseurl       => 'http://yum.puppetexplorer.io/',
+      enabled       => true,
+      gpgcheck      => 0,
+      repo_gpgcheck => 1,
+      gpgkey        => 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-puppetexplorer',
+      before        => Package['puppetexplorer'],
     }
   }
 
