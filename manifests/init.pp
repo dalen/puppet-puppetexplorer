@@ -56,6 +56,10 @@
 #   Add yum repo for the module
 #   Defaults to true for $::osfamily RedHat
 #
+# [*webserver_class*]
+#   Name of the class where the webserver is configured
+#   Default: '::puppetexplorer::apache'
+#
 # [*servername*]
 #   The Apache vhost servername. Default: $::fqdn
 #
@@ -127,6 +131,9 @@ class puppetexplorer (
     'RedHat' => true,
     default  => false,
   },
+
+  $webserver_class    = '::puppetexplorer::apache',
+
   # Apache site options:
   $servername         = $::fqdn,
   $ssl                = true,
@@ -174,13 +181,8 @@ class puppetexplorer (
     require => Package['puppetexplorer'],
   }
 
-  $base_vhost_options = {
-    docroot         => '/usr/share/puppetexplorer',
-    ssl             => $ssl,
-    port            => $port,
-    proxy_pass      => $proxy_pass,
-    ssl_proxyengine => true,
+  if $webserver_class {
+    include $webserver_class
   }
 
-  create_resources ('apache::vhost', hash([$servername, $base_vhost_options]), $vhost_options)
 }
