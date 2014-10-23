@@ -141,7 +141,6 @@ class puppetexplorer (
   $proxy_pass         = [{ 'path' => '/api/v4', 'url' => 'http://localhost:8080/v4' }],
   $vhost_options      = {},
 ) {
-  include apache
 
   if $manage_apt {
     apt::source { 'puppetexplorer':
