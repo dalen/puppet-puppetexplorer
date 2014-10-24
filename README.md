@@ -67,7 +67,7 @@ should work if it is hosted on the same host as PuppetDB.
 
 #####`webserver_class`
   Name of the class that manages the webserver configuration.
-  Defaults to '::puppetexplorer::apapche'
+  Defaults to '::puppetexplorer::apache'
 
 #####`servername`
   The Apache vhost servername. Default: $::fqdn
