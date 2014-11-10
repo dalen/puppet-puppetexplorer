@@ -65,6 +65,10 @@ should work if it is hosted on the same host as PuppetDB.
   Add yum repo for the module.
   Defaults to true for $::osfamily RedHat
 
+#####`webserver_class`
+  Name of the class that manages the webserver configuration.
+  Defaults to '::puppetexplorer::apache'
+
 #####`servername`
   The Apache vhost servername. Default: $::fqdn
 
