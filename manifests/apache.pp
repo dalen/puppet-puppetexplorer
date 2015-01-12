@@ -12,7 +12,6 @@ class puppetexplorer::apache {
     port            => $::puppetexplorer::port,
     proxy_pass      => $::puppetexplorer::proxy_pass,
     ssl_proxyengine => true,
-    require         => Class['apache'],
   }
 
   create_resources ('apache::vhost', hash([$::puppetexplorer::servername, $base_vhost_options]), $::puppetexplorer::vhost_options)
