@@ -1,6 +1,6 @@
 {
   "name": "spotify-puppetexplorer",
-  "version": "0.4.1",
+  "version": "0.5.0",
   "author": "spotify",
   "summary": "Manage the Puppet Explorer web application",
   "license": "Apache 2.0",
