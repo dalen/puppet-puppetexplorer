@@ -32,19 +32,19 @@
 #   name, query and type.
 #   Default: [
 #     {
-#       name   => 'Unresponsive nodes',
-#       'type' => 'danger',
-#       query  => '#node.report-timestamp < @"now - 2 hours"'
+#       'name'  => 'Unresponsive nodes',
+#       'type'  => 'danger',
+#       'query' => '#node.report-timestamp < @"now - 2 hours"'
 #     },
 #     {
-#       name   => 'Nodes in production env',
-#       'type' => 'success',
-#       query  => '#node.catalog-environment = production'
+#       'name'  => 'Nodes in production env',
+#       'type'  => 'success',
+#       'query' => '#node.catalog-environment = production'
 #     },
 #     {
-#       name   => 'Nodes in non-production env',
-#       'type' => 'warning',
-#       query  => '#node.catalog-environment != production'
+#       'name'  => 'Nodes in non-production env',
+#       'type'  => 'warning',
+#       'query' => '#node.catalog-environment != production'
 #     }
 #   ]
 #
@@ -108,19 +108,19 @@ class puppetexplorer (
   $unresponsive_hours = 2,
   $dashboard_panels   = [
     {
-      name   => 'Unresponsive nodes',
-      'type' => 'danger',
-      query  => '#node.report-timestamp < @"now - 2 hours"'
+      'name'  => 'Unresponsive nodes',
+      'type'  => 'danger',
+      'query' => '#node.report-timestamp < @"now - 2 hours"'
     },
     {
-      name   => 'Nodes in production env',
-      'type' => 'success',
-      query  => '#node.catalog-environment = production'
+      'name'  => 'Nodes in production env',
+      'type'  => 'success',
+      'query' => '#node.catalog-environment = production'
     },
     {
-      name   => 'Nodes in non-production env',
-      'type' => 'warning',
-      query  => '#node.catalog-environment != production'
+      'name'  => 'Nodes in non-production env',
+      'type'  => 'warning',
+      'query' => '#node.catalog-environment != production'
     }
   ],
   $manage_apt         = $::osfamily ? {
