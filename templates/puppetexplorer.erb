@@ -1,0 +1,31 @@
+upstream puppetdbhost {
+  server <%= @puppetdb_host %>:8080;
+}
+server {
+  listen                    <%= @nginx_host %>:<%= @nginx_port %> ssl;
+  ssl                       on; 
+  ssl_certificate           /var/lib/puppet/ssl/certs/<%= @hostname %>.pem;
+  ssl_certificate_key       /var/lib/puppet/ssl/private_keys/<%= @hostname %>.pem;
+  ssl_verify_client         optional;
+  ssl_client_certificate    /var/lib/puppet/ssl/ca/ca_crt.pem;
+  ssl_prefer_server_ciphers on; 
+  ssl_protocols             TLSv1.2;
+  ssl_ciphers 'EDH+CAMELLIA:EDH+aRSA:EECDH+aRSA+AESGCM:EECDH+aRSA+SHA384:EECDH+aRSA+SHA256:EECDH:+CAMELLIA256:+AES256:+CAMELLIA128:+AES128:+SSLv3:!aNULL:!eNULL:!LOW:!3DES:!MD5:!EXP:!PSK:!DSS:!RC4:!SEED:!ECDSA:CAMELLIA256-SHA:AES256-SHA:CAMELLIA128-SHA:AES128-SHA';
+  add_header                Strict-Transport-Security max-age=15768000;
+  server_name               <%= @hostname %>;
+  charset                   utf-8;
+  root                      /usr/share/puppetexplorer;
+  access_log                /var/log/nginx/puppetexplorer-access.log;
+  error_log                 /var/log/nginx/puppetexplorer-error.log;
+  location /api/v4/ {
+    proxy_pass http://puppetdbhost/v4/;
+  }
+}
+
+server {
+  listen      80; 
+  server_name <%= @hostname %>;
+  return      301 https://<%= @hostname %>$request_uri;
+  access_log  /var/log/nginx/puppetexplorer-nosssl-access.log;
+  error_log   /var/log/nginx/puppetexplorer-nossl-error.log;
+}

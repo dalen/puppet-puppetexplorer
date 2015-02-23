@@ -92,84 +92,55 @@
 # Copyright 2014 Spotify
 #
 class puppetexplorer (
-  $package_ensure     = present,
-  $ga_tracking_id     = 'UA-XXXXXXXX-YY',
-  $ga_domain          = 'auto',
-  $puppetdb_servers   = [ ['production', '/api'] ],
-  $node_facts         = [
-    'operatingsystem',
-    'operatingsystemrelease',
-    'manufacturer',
-    'productname',
-    'processorcount',
-    'memorytotal',
-    'ipaddress'
-  ],
-  $unresponsive_hours = 2,
-  $dashboard_panels   = [
-    {
-      'name'  => 'Unresponsive nodes',
-      'type'  => 'danger',
-      'query' => '#node.report-timestamp < @"now - 2 hours"'
-    },
-    {
-      'name'  => 'Nodes in production env',
-      'type'  => 'success',
-      'query' => '#node.catalog-environment = production'
-    },
-    {
-      'name'  => 'Nodes in non-production env',
-      'type'  => 'warning',
-      'query' => '#node.catalog-environment != production'
-    }
-  ],
-  $manage_apt         = $::osfamily ? {
-    'Debian' => true,
-    default  => false,
-  },
-  $manage_yum         = $::osfamily ? {
-    'RedHat' => true,
-    default  => false,
-  },
+  $package_ensure     = $::puppetexplorer::params::package_ensure,
+  $ga_tracking_id     = $::puppetexplorer::params::ga_tracking_id,
+  $ga_domain          = $::puppetexplorer::params::ga_domain,
+  $puppetdb_servers   = $::puppetexplorer::params::puppetdb_servers,
+  $node_facts         = $::puppetexplorer::params::node_facts,
+  $unresponsive_hours = $::puppetexplorer::params::unresponsive_hours,
+  $dashboard_panels   = $::puppetexplorer::params::dashboard_panels,
+  $manage_repo        = $::puppetexplorer::params::manage_repo,
+  $webserver_class    = $::puppetexplorer::params::webserver_class,
+  $servername         = $::puppetexplorer::params::servername,
+  $ssl                = $::puppetexplorer::params::ssl,
+  $port               = $::puppetexplorer::params::port,
+  $proxy_pass         = $::puppetexplorer::params::proxy_pass,
+  $vhost_options      = $::puppetexplorer::params::vhost_options,
+  $puppetdb_host      = $::puppetexplorer::params::puppetdb_host,
+  $webserver_ip       = $::puppetexplorer::params::webserver_ip,
+) inherits puppetexplorer::params {
 
-  $webserver_class    = '::puppetexplorer::apache',
-
-  # Apache site options:
-  $servername         = $::fqdn,
-  $ssl                = true,
-  $port               = 443,
-  $proxy_pass         = [{ 'path' => '/api/v4', 'url' => 'http://localhost:8080/v4' }],
-  $vhost_options      = {},
-) {
-
-  if $manage_apt {
-    apt::source { 'puppetexplorer':
-      location    => 'http://apt.puppetexplorer.io',
-      release     => 'stable',
-      repos       => 'main',
-      key         => '3FF5E93D',
-      include_src => false,
+  if $manage_repo {
+    case $::osfamily { 
+      'Debian': {
+        apt::source { 'puppetexplorer':
+          location    => 'http://apt.puppetexplorer.io',
+          release     => 'stable',
+          repos       => 'main',
+          key         => '3FF5E93D',
+          include_src => false,
+          before      => Package['puppetexplorer'],
+        }
+      }
+      'RedHat': {
+        file { '/etc/pki/rpm-gpg/RPM-GPG-KEY-puppetexplorer':
+          ensure => file,
+          source => 'puppet:///modules/puppetexplorer/RPM-GPG-KEY-puppetexplorer',
+          before => Yumrepo['puppetexplorer'],
+        }
+        yumrepo { 'puppetexplorer':
+          ensure        => present,
+          descr         => 'Puppet Explorer',
+          baseurl       => 'http://yum.puppetexplorer.io/',
+          enabled       => true,
+          gpgcheck      => 0,
+          repo_gpgcheck => 1,
+          gpgkey        => 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-puppetexplorer',
+          before        => Package['puppetexplorer'],
+        }
+      }
     }
   }
-
-  if $manage_yum {
-    file { '/etc/pki/rpm-gpg/RPM-GPG-KEY-puppetexplorer':
-      ensure => file,
-      source => 'puppet:///modules/puppetexplorer/RPM-GPG-KEY-puppetexplorer',
-      before => Yumrepo['puppetexplorer'],
-    }
-    yumrepo { 'puppetexplorer':
-      ensure        => present,
-      descr         => 'Puppet Explorer',
-      baseurl       => 'http://yum.puppetexplorer.io/',
-      enabled       => true,
-      gpgcheck      => 0,
-      repo_gpgcheck => 1,
-      gpgkey        => 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-puppetexplorer',
-      before        => Package['puppetexplorer'],
-    }
-  }
-
   package { 'puppetexplorer':
     ensure => $package_ensure,
   }
@@ -180,8 +151,15 @@ class puppetexplorer (
     require => Package['puppetexplorer'],
   }
 
-  if $webserver_class {
-    include $webserver_class
+  if ($webserver_class == 'apache') or ($webserver_class == '::puppetexplorer::apache'){
+    include ::puppetexplorer::apache
+  } elsif $webserver_class == 'nginx'{
+    Class['nginx'] -> Class['::puppetexplorer::nginx']
+    class { '::puppetexplorer::nginx':
+      puppetdb_host => $puppetdb_host,
+      hostname      => $servername,
+      nginx_host    => $webserver_ip,
+      nginx_port    => $port,
+    }
   }
-
 }
