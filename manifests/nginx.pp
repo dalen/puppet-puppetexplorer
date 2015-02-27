@@ -26,6 +26,5 @@ class puppetexplorer::nginx (
     ensure  => link,
     path    => '/etc/nginx/sites-enabled/puppetexplorer',
     target  => '/etc/nginx/sites-available/puppetexplorer',
-    notify  => Service['nginx'],
   }
 }
