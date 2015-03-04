@@ -27,23 +27,23 @@ class puppetexplorer::params {
   $puppetdb_host      = '127.0.0.1'
   $webserver_ip       = $::ipaddress
   $dashboard_panels   = [
-    {   
+    {
       'name'  => 'Unresponsive nodes',
       'type'  => 'danger',
       'query' => '#node.report-timestamp < @"now - 2 hours"'
-    },  
-    {   
+    },
+    {
       'name'  => 'Nodes in production env',
       'type'  => 'success',
       'query' => '#node.catalog-environment = production'
-    },  
-    {   
+    },
+    {
       'name'  => 'Nodes in non-production env',
       'type'  => 'warning',
       'query' => '#node.catalog-environment != production'
-    }   
+    }
   ]
-  $node_facts         = [ 
+  $node_facts         = [
     'operatingsystem',
     'operatingsystemrelease',
     'manufacturer',

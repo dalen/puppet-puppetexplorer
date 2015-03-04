@@ -111,7 +111,7 @@ class puppetexplorer (
 ) inherits puppetexplorer::params {
 
   if $manage_repo {
-    case $::osfamily { 
+    case $::osfamily {
       'Debian': {
         apt::source { 'puppetexplorer':
           location    => 'http://apt.puppetexplorer.io',
@@ -139,6 +139,7 @@ class puppetexplorer (
           before        => Package['puppetexplorer'],
         }
       }
+      default: {fail("your \$osfamily has the value ${::osfamily} which isn't supported for managing the repo")}
     }
   }
   package { 'puppetexplorer':

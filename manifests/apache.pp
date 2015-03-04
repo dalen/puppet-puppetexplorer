@@ -15,5 +15,4 @@ class puppetexplorer::apache {
   }
 
   create_resources ('apache::vhost', hash([$::puppetexplorer::servername, $base_vhost_options]), $::puppetexplorer::vhost_options)
-
 }
