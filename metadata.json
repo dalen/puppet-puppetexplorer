@@ -9,15 +9,15 @@
   "issues_url": "https://github.com/spotify/puppet-puppetexplorer/issues",
   "dependencies": [
     {
-      "name": "puppetlabs-apache",
+      "name": "puppetlabs/apache",
       "version_requirement": ">= 1.0.0"
     },
     {
-      "name": "puppetlabs-stdlib",
+      "name": "puppetlabs/stdlib",
       "version_requirement": ">= 1.0.0"
     },
     {
-      "name": "puppetlabs-apt",
+      "name": "puppetlabs/apt",
       "version_requirement": ">= 1.0.0"
     }
   ]
