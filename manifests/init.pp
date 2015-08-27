@@ -138,7 +138,11 @@ class puppetexplorer (
   $servername         = $::fqdn,
   $ssl                = true,
   $port               = 443,
-  $proxy_pass         = [{ 'path' => '/api/v4', 'url' => 'http://localhost:8080/v4' }],
+  $proxy_pass         = [
+    { 'path' => '/api/pdb/query', 'url' => 'http://localhost:8080/pdb/query' },
+    { 'path' => '/api/pdb/meta', 'url' => 'http://localhost:8080/pdb/meta' },
+    { 'path' => '/api/metrics', 'url' => 'http://localhost:8080/metrics' },
+  ],
   $vhost_options      = {},
 ) {
 
