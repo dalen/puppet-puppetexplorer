@@ -85,7 +85,12 @@ should work if it is hosted on the same host as PuppetDB.
   Access-Control-Expose-Headers "X-Records" headers.
   See the proxy_pass parameter of apache::vhost in puppetlabs-apache for more
   info on this.
-  Default: [{ 'path' => '/api/v4', 'url' => 'http://localhost:8080/v4' }]
+  Default:
+    [
+      { 'path'         => '/api/pdb/query', 'url' => 'http://localhost:8080/pdb/query' },
+      { 'path'     => '/api/pdb/meta', 'url'  => 'http://localhost:8080/pdb/meta' },
+      { 'path' => '/api/metrics', 'url'   => 'http://localhost:8080/metrics' }
+    ]
 
 #####`vhost_options`
   An additional hash of apache::vhost options, see puppetlabs-apache for more
