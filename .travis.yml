@@ -9,6 +9,10 @@ env:
     - secure: "KGbNZWC3AtY658oj/+dUwcTOQ1mbwJc14vJpQ5PXpwfDU13h11uIT5JoU4NLEA3kaevGimgD803b8jUG1EgJT1bipWRd3xeYn6Ak/yW75UlwbfPDPTrmlCrnSFNTCnkMGs56R4hOY1ZsfSmgBVHBg20Gcg8sXCb32ok0f5Gfpgg="
 matrix:
   fast_finish: true
-after_success:
-  - git clone -q git://github.com/puppetlabs/ghpublisher.git .forge-releng
-  - .forge-releng/publish
+deploy:
+  provider: puppetforge
+  username: spotify
+  password:
+    secure: "If1DswgaU2PiIJ32HjLEMTLYmPinlLtxdMXWUznXM/ReXkK7d1L6T/OxuEAwX3eGN/YPxJjB/t53KZ2aleb6QddNW4voKe0PidVQBdVmwmm7WRJOkIJhRw0gEeZWwQnDA1yK+7rUFTL4nmooY2C8neEIogsC3EbGHu4/zmR5+1w="
+  on:
+    tags: true
