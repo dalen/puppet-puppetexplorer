@@ -83,6 +83,10 @@
 #       { 'path' => '/api/metrics', 'url'   => 'http://localhost:8080/metrics' }
 #     ]
 #
+# [*ssl_proxyengine*]
+#   Specifies whether or not to use SSLProxyEngine in the vhost.
+#   Valid values are 'true' and 'false'. Default: true
+#
 # [*vhost_options*]
 #   An additional hash of apache::vhost options, see puppetlabs-apache for more
 #   info. Can be used for configuring authentication or SSL certificates for
@@ -148,6 +152,7 @@ class puppetexplorer (
     { 'path' => '/api/pdb/meta', 'url' => 'http://localhost:8080/pdb/meta' },
     { 'path' => '/api/metrics', 'url' => 'http://localhost:8080/metrics' }
   ],
+  $ssl_proxyengine    = true,
   $vhost_options      = {},
 ) {
 
