@@ -1,0 +1,12 @@
+HOSTS:
+  ubuntu-1404:
+    roles:
+      - default
+    platform: ubuntu-14.04-amd64
+    image: ubuntu:14.04
+    docker_image_commands:
+      - 'apt-get install -y wget'
+    hypervisor: docker
+CONFIG:
+  log_level: verbose
+  type: aio

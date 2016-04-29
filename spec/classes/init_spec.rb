@@ -16,7 +16,11 @@ describe 'puppetexplorer' do
       }
     end
 
-    it { should contain_class('puppetexplorer') }
+    it do
+      is_expected.to compile.with_all_deps
+
+      is_expected.to contain_apt__source('puppetexplorer')
+    end
   end
 
   context 'with defaults for all parameters on RedHat' do
@@ -32,6 +36,11 @@ describe 'puppetexplorer' do
       }
     end
 
-    it { should contain_class('puppetexplorer') }
+    it do
+      is_expected.to compile.with_all_deps
+
+      is_expected.to contain_file('/etc/pki/rpm-gpg/RPM-GPG-KEY-puppetexplorer')
+      is_expected.to contain_yumrepo('puppetexplorer')
+    end
   end
 end

@@ -1,9 +1,13 @@
 language: ruby
-script: bundle exec rake test
+sudo: required
+dist: trusty
+script: bundle exec rake $RAKE_TASK
 env:
   matrix:
-    - PUPPET_VERSION="~> 3.7.1"
-    - PUPPET_VERSION="~> 3.7"
+    - RAKE_TASK=test
+    - RAKE_TASK=acceptance BEAKER_set=debian-7
+    - RAKE_TASK=acceptance BEAKER_set=centos-7
+    - RAKE_TASK=acceptance BEAKER_set=ubuntu-1404
   global:
     - PUBLISHER_LOGIN=spotify
     - secure: "KGbNZWC3AtY658oj/+dUwcTOQ1mbwJc14vJpQ5PXpwfDU13h11uIT5JoU4NLEA3kaevGimgD803b8jUG1EgJT1bipWRd3xeYn6Ak/yW75UlwbfPDPTrmlCrnSFNTCnkMGs56R4hOY1ZsfSmgBVHBg20Gcg8sXCb32ok0f5Gfpgg="

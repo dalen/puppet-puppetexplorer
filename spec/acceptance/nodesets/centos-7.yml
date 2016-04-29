@@ -1,0 +1,13 @@
+HOSTS:
+  centos-7:
+    roles:
+      - default
+    platform: el-7-x86_64
+    image: centos:7
+    docker_image_commands:
+      - 'yum install -y tar'
+    docker_cmd: '["/sbin/init"]'
+    hypervisor: docker
+CONFIG:
+  log_level: verbose
+  type: aio
