@@ -140,6 +140,7 @@ class puppetexplorer (
     'RedHat' => true,
     default  => false,
   },
+  $manage_selinux     = false,
 
   $webserver_class    = '::puppetexplorer::apache',
 
@@ -182,6 +183,10 @@ class puppetexplorer (
       repo_gpgcheck => 1,
       gpgkey        => 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-puppetexplorer',
       before        => Package['puppetexplorer'],
+    }
+    if $manage_selinux {
+      include '::selinux'
+      selinux::boolean { 'httpd_can_network_connect': }
     }
   }
 
