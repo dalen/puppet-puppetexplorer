@@ -7,12 +7,10 @@ group :test do
   gem "rspec-puppet"
   gem "puppet-syntax"
   gem "puppetlabs_spec_helper"
+  gem "beaker-rspec"
 end
 
 group :development do
-  gem "beaker"
-  gem "beaker-rspec"
-  gem "vagrant-wrapper"
   gem "puppet-blacksmith"
   gem "guard-rake"
 end
