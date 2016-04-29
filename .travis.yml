@@ -1,9 +1,9 @@
 language: ruby
+rvm: 2.2
 script: bundle exec rake test
 env:
   matrix:
-    - PUPPET_VERSION="~> 3.7.1"
-    - PUPPET_VERSION="~> 3.7"
+    - PUPPET_VERSION="~> 4.4"
   global:
     - PUBLISHER_LOGIN=spotify
     - secure: "KGbNZWC3AtY658oj/+dUwcTOQ1mbwJc14vJpQ5PXpwfDU13h11uIT5JoU4NLEA3kaevGimgD803b8jUG1EgJT1bipWRd3xeYn6Ak/yW75UlwbfPDPTrmlCrnSFNTCnkMGs56R4hOY1ZsfSmgBVHBg20Gcg8sXCb32ok0f5Gfpgg="
