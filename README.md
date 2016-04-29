@@ -43,17 +43,17 @@ should work if it is hosted on the same host as PuppetDB.
       {
         'name'  => 'Unresponsive nodes',
         'type'  => 'danger',
-        'query' => '#node.report-timestamp < @"now - 2 hours"'
+        'query' => '#node.report_timestamp < @"now - 2 hours"'
       },
       {
         'name'  => 'Nodes in production env',
         'type'  => 'success',
-        'query' => '#node.catalog-environment = production'
+        'query' => '#node.catalog_environment = production'
       },
       {
         'name'  => 'Nodes in non-production env',
         'type'  => 'warning',
-        'query' => '#node.catalog-environment != production'
+        'query' => '#node.catalog_environment != production'
       }
     ]
 
