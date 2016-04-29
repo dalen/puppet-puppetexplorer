@@ -39,6 +39,7 @@ describe 'puppetexplorer' do
     it do
       is_expected.to compile.with_all_deps
 
+      is_expected.to contain_file('/etc/pki/rpm-gpg/RPM-GPG-KEY-puppetexplorer')
       is_expected.to contain_yumrepo('puppetexplorer')
     end
   end
