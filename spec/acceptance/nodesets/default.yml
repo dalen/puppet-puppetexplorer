@@ -5,7 +5,7 @@ HOSTS:
     platform: debian-7-amd64
     image: debian:7
     docker_image_commands:
-      - 'apt-get install -y wget'
+      - 'apt-get install -y wget net-tools'
     hypervisor: docker
 CONFIG:
   log_level: verbose
