@@ -5,10 +5,14 @@ describe 'puppetexplorer hostclass' do
     it 'should work with no errors' do
       pp = <<-EOS
       class { 'puppetexplorer':
-        proxy_pass => [
+        servername      => 'puppetexplorer.test',
+        port            => 80,
+        ssl             => false,
+        ssl_proxyengine => false,
+        proxy_pass      => [
           {
             "path" => "/api",
-            "url" => "http://demo.puppetexplorer.io"
+            "url"  => "http://demo.puppetexplorer.io"
           }
         ],
       }
@@ -19,5 +23,13 @@ describe 'puppetexplorer hostclass' do
       apply_manifest(pp, :catch_changes => true)
     end
 
+    describe port(80) do
+      it { should be_listening }
+    end
+
+    describe command("curl -f -s -H 'Host: puppetexplorer.test' http://localhost/") do
+      its(:exit_status) { should eq 0 }
+      its(:stdout) { should match /Puppet Explorer/ }
+    end
   end
 end
