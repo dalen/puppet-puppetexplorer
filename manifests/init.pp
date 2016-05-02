@@ -101,11 +101,11 @@
 #
 # === Authors
 #
-# Erik Dalen <dalen@spotify.com>
+# Erik Dalen <erik.gustav.dalen@gmail.com>
 #
 # === Copyright
 #
-# Copyright 2014 Spotify
+# Copyright 2014-2016 Erik Dalen
 #
 class puppetexplorer (
   $package_ensure     = present,
