@@ -1,0 +1,12 @@
+HOSTS:
+  ubuntu-1604:
+    roles:
+      - default
+    platform: ubuntu-16.04-amd64
+    image: ubuntu:16.04
+    docker_image_commands:
+      - 'apt-get install -y wget net-tools'
+    hypervisor: docker
+CONFIG:
+  log_level: verbose
+  type: aio
