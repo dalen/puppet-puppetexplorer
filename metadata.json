@@ -1,7 +1,7 @@
 {
   "name": "spotify-puppetexplorer",
-  "version": "1.0.1",
-  "author": "spotify",
+  "version": "1.1.0",
+  "author": "Erik Dalen",
   "summary": "Manage the Puppet Explorer web application",
   "license": "Apache-2.0",
   "source": "https://github.com/spotify/puppet-puppetexplorer.git",
