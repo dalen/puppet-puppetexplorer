@@ -203,6 +203,7 @@ class puppetexplorer (
 
   file { '/usr/share/puppetexplorer/config.js':
     ensure  => file,
+    mode    => '0644',
     content => template('puppetexplorer/config.js.erb'),
     require => Package['puppetexplorer'],
   }
