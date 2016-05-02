@@ -50,21 +50,28 @@
 #
 # [*manage_apt*]
 #   Add apt repo for the module
+#   This option requires the `puppetlabs/apt` module
 #   Defaults to true for $::osfamily Debian
 #
 # [*manage_yum*]
 #   Add yum repo for the module
 #   Defaults to true for $::osfamily RedHat
 #
+# [*manage_selinux*]
+#   Manage SELinux capabilities
+#   This option requires the `jfryman/selinux` module
+#   Defaults to false
+#
 # [*webserver_class*]
 #   Name of the class where the webserver is configured
+#   Using `'::puppetexplorer::apache'` requires the `puppetlabs/apache` module.
 #   Default: '::puppetexplorer::apache'
 #
 # [*servername*]
 #   The Apache vhost servername. Default: $::fqdn
 #
 # [*ssl*]
-#   If SSL should be turned on for the Aapche vhost. Default: true
+#   If SSL should be turned on for the Apache vhost. Default: true
 #
 # [*port*]
 #   Port of the Apache vhost. Default: 443
