@@ -9,20 +9,22 @@
   "issues_url": "https://github.com/spotify/puppet-puppetexplorer/issues",
   "dependencies": [
     {
-      "name": "puppetlabs/apache",
-      "version_requirement": ">= 1.0.0"
-    },
-    {
       "name": "puppetlabs/stdlib",
       "version_requirement": ">= 1.0.0"
-    },
+    }
+  ],
+  "optional_dependencies": [
     {
       "name": "puppetlabs/apt",
       "version_requirement": ">= 1.0.0"
-    }
+    },
     {
       "name": "jfryman/selinux",
       "version_requirement": ">= 0.3.0"
+    },
+    {
+      "name": "puppetlabs/apache",
+      "version_requirement": ">= 1.0.0"
     }
   ]
 }

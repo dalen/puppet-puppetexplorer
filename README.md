@@ -59,14 +59,21 @@ should work if it is hosted on the same host as PuppetDB.
 
 #####`manage_apt`
   Add apt repo for the module.
+  This option requires the `puppetlabs/apt` module.
   Defaults to true for $::osfamily Debian
 
 #####`manage_yum`
   Add yum repo for the module.
   Defaults to true for $::osfamily RedHat
 
+#####`manage_selinux`
+   Manage SELinux capabilities
+   This option requires the `jfryman/selinux` module
+   Defaults to false
+
 #####`webserver_class`
   Name of the class that manages the webserver configuration.
+  Using `'::puppetexplorer::apache'` requires the `puppetlabs/apache` module.
   Defaults to '::puppetexplorer::apache'
 
 #####`servername`
