@@ -15,7 +15,7 @@ matrix:
   fast_finish: true
 deploy:
   provider: puppetforge
-  username: spotify
+  user: spotify
   password:
     secure: "If1DswgaU2PiIJ32HjLEMTLYmPinlLtxdMXWUznXM/ReXkK7d1L6T/OxuEAwX3eGN/YPxJjB/t53KZ2aleb6QddNW4voKe0PidVQBdVmwmm7WRJOkIJhRw0gEeZWwQnDA1yK+7rUFTL4nmooY2C8neEIogsC3EbGHu4/zmR5+1w="
   on:
