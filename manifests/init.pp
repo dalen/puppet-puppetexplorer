@@ -170,7 +170,6 @@ class puppetexplorer (
       release     => 'stable',
       repos       => 'main',
       key         => 'CA37C758D0D8CD3AE9740C466F75C6183FF5E93D',
-      include_src => false,
       before      => Package['puppetexplorer'],
     }
   }
