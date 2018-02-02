@@ -193,6 +193,7 @@ class puppetexplorer (
     if $manage_selinux {
       include '::selinux'
       selinux::boolean { 'httpd_can_network_connect': }
+      selinux::boolean { 'httpd_can_network_relay': }
     }
   }
 
